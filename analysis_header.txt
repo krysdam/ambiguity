@@ -1,0 +1,54 @@
+# UTIL FUNCTIONS ################################
+print       header(s, n)
+print       usage_exit()
+
+# DATA: TEST QUESTIONS ##########################
+enum        condition type
+enum        answer kind
+
+class       TQuestion   init(self, conj1, conj2, conj3, atb)
+                str     flatten(s)
+                a_kind  attachment(self, answer)
+
+{i:{i:TQ}}  TQs
+
+# DATA: DISTRACTOR QUESTIONS ####################
+{i:{i:[c]}} patterns
+str         which_pattern(ab_sequence, experiment_number)
+{i: [str]}  distractor_answers
+
+# PARTICIPANTS (aka PEOPLE) #####################
+class       Person()
+                int     experiment_number
+                str     id
+                str     name
+                [cond]  ab_sequence
+                str     ab_pattern
+                bool    TQ_complete
+                bool    DQ_complete
+                bool    DQ_correct
+                float   average_time_a, average_time_b, average_time
+                bool    time_good
+                bool    include
+                {c:{a:i}}   answer_counts
+
+                set!    count_kinds(self, row)
+                [cond]  find_ab_sequence(row)
+                bool    distractors_complete(row)
+                bool    distractors_correct(row)
+                (f, f)  find_average_time(row)
+                set!    set_time_cutoff(self, cutoff)
+                str     __str__(self)
+
+[Person]    read_people(fname)
+
+# EXCLUSION ###########################
+print       exclusion_report(people)
+
+# ANALYSIS ############################
+print       analyze_sample(people, expected_high, expected_low, expected_illegal)
+print       analyze_file(experiment_number, file_name)
+
+main
+    # read experiment number and file name from stdin
+    analyze_file(experiment_number, file_name)

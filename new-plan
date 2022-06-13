@@ -1,0 +1,55 @@
+Experiment
+    str             name
+    [Q]             TQs
+    [Q]             DQs
+    [Person]        people
+    boolean         TQ_complete(Person)
+    boolean         DQ_complete(Person)
+    boolean         DQ_correct(Person)
+    boolean         time_good(Person)
+    boolean         include(Person)
+
+Question
+    Enum?           categorize(answer)
+
+AttachmentQuestion(Question)
+    # Ignore "condition" problem: treat a/b as one question
+    str             conj1
+    str             conj2
+    str             conj3
+
+Person
+    int             id
+    int             name
+    {str: str}      TQ_answers  
+    {str: float}    TQ_times
+    {str: str}      DQ_answers
+    {str: float}    DQ_times
+
+##########################
+
+Queries
+    Specifics
+        %High in A in exp1
+        %High vs %Low in A in exp1
+        %High in A in Q1 in exp1
+        %High vs %Low in Q1 in A in exp1
+
+    Generals
+        % response X               in condition C
+          response X vs response Y in condition C
+        % response X               in condition C in question Q
+          response X vs response Y in condition C in question Q
+
+        (response X in condition C in questions Qs) vs (in questions Qs)
+
+Store
+    % response X in condition C in question Q
+    response HIGH, LOW, ILLEGAL
+    condition A, B
+    question 1, 2, ... 12
+
+    {question: {condition: {response: float}}}
+
+    Should I store {condition: {response: float}} in Question?
+    Probably not... my Questions don't know about conditions
