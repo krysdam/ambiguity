@@ -329,14 +329,10 @@ class Person():
 
     def count_kinds(self, row):
         """ Count number of High, Low, Illegal, and None answers. """
-        #for n in range(12):
-        for n in [0]:
+        for n in range(12):
             # 'a' or 'b' or '-'
             condition = self.ab_sequence[n]
             if condition == MISS:
-                continue
-            if condition != A:
-                self.TQ_complete = False
                 continue
             # TQ1a or TQ1b, etc
             TQname = "TQ" + str(n+1) + {A:"a", B:"b"}[condition]
@@ -502,19 +498,6 @@ def exclusion_report(people):
 
 def analyze_sample(people, expected_high, expected_low, expected_illegal):
     print("N: {}".format(len(people)))
-
-    print("\t\tA\t\tB")
-    high = [(p.answer_counts[A][HIGH] + p.answer_counts[B][HIGH])/1 for p in people]
-    low = [(p.answer_counts[A][LOW] + p.answer_counts[B][LOW])/1 for p in people]
-    illegal = [(p.answer_counts[A][ILLEGAL] + p.answer_counts[B][ILLEGAL])/1 for p in people]
-    none = [(p.answer_counts[A][NONE] + p.answer_counts[B][NONE])/1 for p in people]
-    print("high:    \t{:<8.3}".format(stats.tmean(high)))
-    print("low:     \t{:<8.3}".format(stats.tmean(low)))
-    print("illegal: \t{:<8.3}".format(stats.tmean(illegal)))
-    print("none:    \t{:<8.3}".format(stats.tmean(none)))
-    print("high vs low: \t{:<8.3}".format(stats.ttest_rel(high, low).pvalue))
-
-    exit()
 
     header("high", 35)
     # High attachment: mean(A), mean(B), p(A), p(B), p(A vs B)
